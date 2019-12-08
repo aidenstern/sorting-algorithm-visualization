@@ -10,15 +10,17 @@ import static util.Sleep.sleepFor;
 public class SortArray {
     private final SortView arrayVisualiser;
     private ArrayList<Integer> list;
+    private int length;
 
     public SortArray(int length, SortView arrayVisualiser) {
+        this.length = length;
         list = new ArrayList<>();
         createUniqueList(list);
         this.arrayVisualiser = arrayVisualiser;
     }
 
     public void createUniqueList(ArrayList<Integer> list) {
-        for (int i = 0; i < SortView.NUM_BARS; i++) {
+        for (int i = 0; i < length; i++) {
             list.add(i, (i * 5) + 10);
         }
         Collections.shuffle(list);

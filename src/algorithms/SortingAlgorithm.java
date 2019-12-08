@@ -2,7 +2,7 @@ package algorithms;
 
 import main.SortArray;
 
-abstract class SortingAlgorithm {
+public abstract class SortingAlgorithm {
 
     public abstract String getName();
 
