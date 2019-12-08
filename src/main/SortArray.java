@@ -5,7 +5,6 @@ import screens.SortView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static util.Sleep.sleepFor;
 
 public class SortArray {
     private final SortView arrayVisualiser;
@@ -39,7 +38,11 @@ public class SortArray {
         list.set(firstIndex, list.get(secondIndex));
         list.set(secondIndex, temp);
         arrayVisualiser.repaint();
-        sleepFor(25000);
+        try {
+            Thread.sleep(15);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

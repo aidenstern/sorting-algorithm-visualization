@@ -7,18 +7,8 @@ import java.util.ArrayList;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    private int stepDelay = 2;
-
     public String getName() {
         return "Bubble Sort";
-    }
-
-    public long getDelay() {
-        return stepDelay;
-    }
-
-    public void setDelay(int delay) {
-        stepDelay = delay;
     }
 
     public void runSort(SortArray array) {

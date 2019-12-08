@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,10 +35,10 @@ public class View {
             sortList.add(i, sortView);
             window.add(sortView);
         }
+    }
 
-        /**
+    public void start() {
         ArrayList<Callable<Void>> taskList = new ArrayList<>();
-
         for (int i = 0; i < 16; i++) {
             int I = i;
             Callable<Void> callable = () -> {
@@ -46,15 +47,12 @@ public class View {
             };
             taskList.add(callable);
         }
-
         ExecutorService executor = Executors.newFixedThreadPool(16);
         try {
             executor.invokeAll(taskList);
         }
         catch (InterruptedException ie) {
-
-         }
-        */
-        sortList.get(0).run();
+            System.out.println(Arrays.toString(ie.getStackTrace()));
+        }
     }
 }
