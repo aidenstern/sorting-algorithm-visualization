@@ -1,9 +1,6 @@
 package algorithms;
 
 import main.SortArray;
-import screens.SortView;
-
-import java.util.ArrayList;
 
 public class BubbleSort extends SortingAlgorithm {
 

@@ -1,6 +1,5 @@
 package screens;
 
-import algorithms.BubbleSort;
 import algorithms.SortingAlgorithm;
 import main.SortArray;
 
@@ -11,29 +10,29 @@ import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
-public class SortView extends JPanel {
+public class SortPanel extends JPanel {
     public static final int WIDTH =  320;
     public static final int HEIGHT = 190;
     public static final int NUM_BARS = WIDTH / 10 - 2;
     private SortArray array;
     private SortingAlgorithm algorithm;
 
-    public SortView(SortingAlgorithm algorithm) {
+    public SortPanel(SortingAlgorithm algorithm) {
         this.algorithm = algorithm;
         Border blackLine = BorderFactory.createLineBorder(Color.black);
         TitledBorder title = BorderFactory.createTitledBorder(blackLine, algorithm.getName());
         title.setTitleJustification(TitledBorder.CENTER);
         this.setBorder(title);
         array = new SortArray(NUM_BARS, this);
-        this.repaint();
     }
 
     public void run() {
         algorithm.runSort(array);
+    }
+
+    public SortArray getArray() {
+        return array;
     }
 
     @Override

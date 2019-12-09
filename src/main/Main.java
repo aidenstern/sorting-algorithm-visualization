@@ -9,7 +9,6 @@ public class Main {
     }
 
     public void run() {
-        View view = new View();
-        view.start();
+        new View();
     }
 }

@@ -1,17 +1,16 @@
 package main;
 
-import screens.SortView;
+import screens.SortPanel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 public class SortArray {
-    private final SortView arrayVisualiser;
+    private final SortPanel arrayVisualiser;
     private ArrayList<Integer> list;
     private int length;
 
-    public SortArray(int length, SortView arrayVisualiser) {
+    public SortArray(int length, SortPanel arrayVisualiser) {
         this.length = length;
         list = new ArrayList<>();
         createUniqueList(list);
@@ -22,11 +21,15 @@ public class SortArray {
         for (int i = 0; i < length; i++) {
             list.add(i, (i * 5) + 10);
         }
-        Collections.shuffle(list);
+        shuffle();
     }
 
     public int size() {
         return list.size();
+    }
+
+    public void shuffle() {
+        Collections.shuffle(list);
     }
 
     public int getValue(int index) {
@@ -39,7 +42,7 @@ public class SortArray {
         list.set(secondIndex, temp);
         arrayVisualiser.repaint();
         try {
-            Thread.sleep(15);
+            Thread.sleep(30);
         } catch (Exception e) {
             e.printStackTrace();
         }
