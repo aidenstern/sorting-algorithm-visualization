@@ -2,20 +2,18 @@ package screens;
 
 
 import algorithms.BubbleSort;
+import algorithms.QuickSort;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class View {
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 800;
+    public static final int WIDTH = 1272;
+    public static final int HEIGHT = 700;
 
     private JPanel panelMain;
     private ArrayList<SortPanel> sortList;
@@ -43,7 +41,7 @@ public class View {
         panelButton.add(shuffleButton);
 
         // Main Panel
-        panelMain = new JPanel(new GridLayout(4, 4, 5, 5));
+        panelMain = new JPanel(new GridLayout(3, 3, 5, 5));
         populate();
 
         // Main Frame
@@ -55,13 +53,19 @@ public class View {
         window.setSize(WIDTH, HEIGHT);
         window.setVisible(true);
         window.setResizable(false);
-        //start();
     }
 
     public void populate() {
         sortList = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 5; i++) {
             SortPanel sortPanel = new SortPanel(new BubbleSort());
+            sortPanel.setSize(SortPanel.WIDTH, SortPanel.HEIGHT);
+            sortList.add(i, sortPanel);
+            panelMain.add(sortPanel);
+        }
+        for (int i = 5; i < 9; i++) {
+            SortPanel sortPanel = new SortPanel(new QuickSort());
+            sortPanel.setSize(SortPanel.WIDTH, SortPanel.HEIGHT);
             sortList.add(i, sortPanel);
             panelMain.add(sortPanel);
         }
@@ -79,13 +83,12 @@ public class View {
         for (int i = 0; i < 16; i++) {
             int I = i;
             Callable<Void> callable = () -> {
-                sortList.get(I).repaint();
                 sortList.get(I).run();
                 return null;
             };
             taskList.add(callable);
         }
-        executor = Executors.newFixedThreadPool(16);
+        executor = Executors.newFixedThreadPool(17);
     }
 
     public void start() {

@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SortArray {
-    private final SortPanel arrayVisualiser;
+    private final SortPanel sortPanel;
     private ArrayList<Integer> list;
     private int length;
 
-    public SortArray(int length, SortPanel arrayVisualiser) {
+    public SortArray(int length, SortPanel sortPanel) {
         this.length = length;
+        this.sortPanel = sortPanel;
         list = new ArrayList<>();
         createUniqueList(list);
-        this.arrayVisualiser = arrayVisualiser;
     }
 
     public void createUniqueList(ArrayList<Integer> list) {
         for (int i = 0; i < length; i++) {
-            list.add(i, (i * 5) + 10);
+            list.add(i, i * 2 + 10);
         }
         shuffle();
     }
@@ -40,9 +40,9 @@ public class SortArray {
         int temp = list.get(firstIndex);
         list.set(firstIndex, list.get(secondIndex));
         list.set(secondIndex, temp);
-        arrayVisualiser.repaint();
+        sortPanel.repaint();
         try {
-            Thread.sleep(30);
+            Thread.sleep(50);
         } catch (Exception e) {
             e.printStackTrace();
         }

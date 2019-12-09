@@ -4,10 +4,12 @@ import main.SortArray;
 
 public class BubbleSort extends SortingAlgorithm {
 
+    @Override
     public String getName() {
         return "Bubble Sort";
     }
 
+    @Override
     public void runSort(SortArray array) {
         int n = array.size();
         for (int i = 0; i < n - 1; i++) {
