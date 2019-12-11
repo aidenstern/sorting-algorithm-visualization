@@ -8,7 +8,8 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class SortPanel extends JPanel {
+public class SortPanel extends JPanel implements Runnable {
+
     public static final int WIDTH = 420;
     public static final int HEIGHT = 160;
     public static final int BAR_WIDTH = 5;
@@ -18,19 +19,21 @@ public class SortPanel extends JPanel {
 
     public SortPanel(SortingAlgorithm algorithm) {
         this.algorithm = algorithm;
-        Border blackLine = BorderFactory.createLineBorder(Color.black);
-        TitledBorder title = BorderFactory.createTitledBorder(blackLine, algorithm.getName());
+        Border line = BorderFactory.createLineBorder(Color.white);
+        TitledBorder title = BorderFactory.createTitledBorder(line, algorithm.getName());
         title.setTitleJustification(TitledBorder.CENTER);
+        title.setTitleColor(Color.white);
         this.setBorder(title);
+        this.setBackground(Color.black);
         array = new SortArray(NUM_BARS, this);
-    }
-
-    public void run() {
-        algorithm.runSort(array);
     }
 
     public SortArray getArray() {
         return array;
+    }
+
+    public void run() {
+        algorithm.runSort(array);
     }
 
     @Override
@@ -39,11 +42,12 @@ public class SortPanel extends JPanel {
         super.paintComponent(graphics);
         int count = 7;
         for (int i = 0; i < NUM_BARS; i++) {
-            graphics.setColor(Color.gray);
-            graphics.fillRect(count, HEIGHT - array.getValue(i) + 37, BAR_WIDTH, array.getValue(i));
+            graphics.setColor(Color.white);
+            graphics.fillRect(count, HEIGHT - array.get(i) + 37, BAR_WIDTH, array.get(i));
             graphics.setColor(Color.black);
-            graphics.drawRect(count, HEIGHT - array.getValue(i) + 37, BAR_WIDTH, array.getValue(i));
+            graphics.drawRect(count, HEIGHT - array.get(i) + 37, BAR_WIDTH, array.get(i));
             count += BAR_WIDTH;
         }
     }
 }
+

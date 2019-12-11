@@ -25,16 +25,16 @@ public class QuickSort extends SortingAlgorithm {
     }
 
     private int partition(SortArray list, int idx1, int idx2) {
-        int pivot = list.getValue(idx1);
+        int pivot = list.get(idx1);
         int leftIndex = idx1 - 1;
         int rightIndex = idx2 + 1;
         while (leftIndex < rightIndex) {
             leftIndex++;
-            while (pivot > list.getValue(leftIndex)) {
+            while (pivot > list.get(leftIndex)) {
                 leftIndex++;
             }
             rightIndex--;
-            while (pivot < list.getValue(rightIndex)) {
+            while (pivot < list.get(rightIndex)) {
                 rightIndex--;
             }
             if (leftIndex < rightIndex) {
