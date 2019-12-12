@@ -82,13 +82,17 @@ public class View {
 
     private void populateMenu() {
         panelMenu = new JPanel();
+        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
+        panelMenu.setBackground(Color.black);
         choices = new LinkedList<>();
         comboList = new ArrayList<>();
         algorithmList = new String[]{"Bubble Sort", "Cocktail Sort", "Heap Sort", "Insertion Sort",
                 "Merge Sort", "Quick Sort", "Radix Sort", "Selection Sort", "placeholder"};
         JPanel panelFull = new JPanel(new GridLayout(3, 1, 50, 50));
+        panelFull.setBackground(Color.darkGray);
         for (int i = 0; i < 3; i++) {
             JPanel panelSub = new JPanel(new GridLayout(1, 3, 50, 50));
+            panelSub.setBackground(Color.darkGray);
             for (int j = 0; j < 3; j++) {
                 JComboBox<String> algorithmChoice = new JComboBox<>(algorithmList);
                 comboList.add(algorithmChoice);
@@ -106,10 +110,26 @@ public class View {
             populateMain();
             cards.next(panelMain);
         });
-        JPanel panelFormat = new JPanel(new BorderLayout());
-        panelFormat.add(panelFull, BorderLayout.CENTER);
+        JPanel buttonFormat = new JPanel(new GridBagLayout());
+        buttonFormat.setMaximumSize(new Dimension(225, 75));
+        buttonFormat.add(enterButton);
+        buttonFormat.setBackground(Color.darkGray);
+        buttonFormat.setBorder(BorderFactory.createLineBorder(Color.white));
+        JPanel panelFormat = new JPanel(new GridBagLayout());
+        panelFormat.setMaximumSize(new Dimension(475, 225));
+        panelFormat.add(panelFull);
+        panelFormat.setBackground(Color.darkGray);
+        panelFormat.setBorder(BorderFactory.createLineBorder(Color.white));
+        JPanel panelImage = new JPanel(new GridBagLayout());
+        panelImage.setMaximumSize(new Dimension(600, 200));
+        panelImage.setBackground(Color.black);
+        panelImage.add(new JLabel(new ImageIcon("C:\\Users\\Aiden\\Desktop\\sortlogo.png")));
+        panelMenu.add(Box.createRigidArea(new Dimension(0, 20)));
+        panelMenu.add(panelImage);
+        panelMenu.add(Box.createRigidArea(new Dimension(0, 20)));
         panelMenu.add(panelFormat);
-        panelMenu.add(enterButton);
+        panelMenu.add(Box.createRigidArea(new Dimension(0, 50)));
+        panelMenu.add(buttonFormat);
     }
 
     private void populateMain() {
@@ -177,5 +197,4 @@ public class View {
             t.start();
         }
     }
-
 }
