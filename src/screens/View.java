@@ -87,7 +87,7 @@ public class View {
         choices = new LinkedList<>();
         comboList = new ArrayList<>();
         algorithmList = new String[]{"Bubble Sort", "Cocktail Sort", "Heap Sort", "Insertion Sort",
-                "Merge Sort", "Quick Sort", "Radix Sort", "Selection Sort", "placeholder"};
+                "Merge Sort", "Quick Sort", "Radix Sort", "Selection Sort", "None"};
         JPanel panelFull = new JPanel(new GridLayout(3, 1, 50, 50));
         panelFull.setBackground(Color.darkGray);
         for (int i = 0; i < 3; i++) {
@@ -123,7 +123,7 @@ public class View {
         JPanel panelImage = new JPanel(new GridBagLayout());
         panelImage.setMaximumSize(new Dimension(600, 200));
         panelImage.setBackground(Color.black);
-        panelImage.add(new JLabel(new ImageIcon("C:\\Users\\Aiden\\Desktop\\sortlogo.png")));
+        panelImage.add(new JLabel(new ImageIcon("src\\resources\\sortlogo.png")));
         panelMenu.add(Box.createRigidArea(new Dimension(0, 20)));
         panelMenu.add(panelImage);
         panelMenu.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -168,6 +168,10 @@ public class View {
                 addAlgorithm(count, new SortPanel(new SelectionSort()));
                 choices.poll();
                 count++;
+            } else if (choices.peek().equals(algorithmList[8])) {
+                createEmpty();
+                choices.poll();
+                count++;
             }
         }
         count = 0;
@@ -187,6 +191,12 @@ public class View {
             sort.getArray().shuffle();
             sort.repaint();
         }
+    }
+
+    private void createEmpty() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.black);
+        panelAlgorithms.add(panel);
     }
 
     private void start() {
