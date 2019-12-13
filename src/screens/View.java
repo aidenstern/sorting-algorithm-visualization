@@ -28,7 +28,7 @@ public class View {
     private int count;
 
     public View() {
-        executor = Executors.newFixedThreadPool(20);
+        executor = Executors.newFixedThreadPool(5);
         // Button Panel
         JPanel panelButton = new JPanel();
         JButton startButton = new JButton("Start");
@@ -44,9 +44,15 @@ public class View {
         JButton menuButton = new JButton("Menu");
         menuButton.addActionListener(e -> {
             cards.next(panelMain);
-            clearScreen();
+            stop();
+        });
+        JButton stopButton = new JButton("Stop");
+        stopButton.addActionListener(e -> {
+            Runnable run = this::stop;
+            executor.execute(run);
         });
         panelButton.add(startButton);
+        panelButton.add(stopButton);
         panelButton.add(shuffleButton);
         panelButton.add(menuButton);
         panelButton.setBackground(Color.black);
@@ -107,6 +113,7 @@ public class View {
                 int index = comboList.get(i).getSelectedIndex();
                 choices.offer(algorithmList[index]);
             }
+            clearScreen();
             populateMain();
             cards.next(panelMain);
         });
@@ -205,6 +212,12 @@ public class View {
             Thread t = new Thread(sort);
             taskList.add(t);
             t.start();
+        }
+    }
+
+    private void stop() {
+        for (Thread t : taskList) {
+            t.interrupt();
         }
     }
 }
