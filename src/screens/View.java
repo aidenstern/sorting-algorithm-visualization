@@ -18,6 +18,7 @@ public class View {
     private JPanel panelAlgorithms;
     private JPanel panelMenu;
     private JPanel panelMain;
+    private JPanel panelButton;
     private ArrayList<SortPanel> sortList;
     private ArrayList<JComboBox<String>> comboList;
     private Queue<String> choices;
@@ -28,39 +29,23 @@ public class View {
     private int count;
 
     public View() {
+        // Instantiate threads used for buttons
         executor = Executors.newFixedThreadPool(5);
+
         // Button Panel
-        JPanel panelButton = new JPanel();
-        JButton startButton = new JButton("Start");
-        startButton.addActionListener(e -> {
-            Runnable run = this::start;
-            executor.execute(run);
-        });
-        JButton shuffleButton = new JButton("Shuffle");
-        shuffleButton.addActionListener(e -> {
-            Runnable run = this::shuffle;
-            executor.execute(run);
-        });
-        JButton menuButton = new JButton("Menu");
-        menuButton.addActionListener(e -> {
-            cards.next(panelMain);
-            stop();
-        });
-        JButton stopButton = new JButton("Stop");
-        stopButton.addActionListener(e -> {
-            Runnable run = this::stop;
-            executor.execute(run);
-        });
-        panelButton.add(startButton);
-        panelButton.add(stopButton);
-        panelButton.add(shuffleButton);
-        panelButton.add(menuButton);
+        panelButton = new JPanel();
+        populateButton();
         panelButton.setBackground(Color.black);
 
         // Menu Panel
-        // todo: logo
+        panelMenu = new JPanel();
+        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
+        panelMenu.setBackground(Color.black);
+        choices = new LinkedList<>();
+        comboList = new ArrayList<>();
+        algorithmList = new String[]{"Bubble Sort", "Cocktail Sort", "Heap Sort", "Insertion Sort",
+                "Merge Sort", "Quick Sort", "Radix Sort", "Selection Sort", "None"};
         populateMenu();
-
 
         // Algorithms Panel
         JPanel algorithmMain = new JPanel(new BorderLayout());
@@ -86,14 +71,45 @@ public class View {
         window.setResizable(false);
     }
 
+    private void populateButton() {
+        JButton startButton = new JButton("Start");
+        startButton.addActionListener(e -> {
+            Runnable run = this::start;
+            executor.execute(run);
+        });
+        JButton shuffleButton = new JButton("Shuffle");
+        shuffleButton.addActionListener(e -> {
+            Runnable run = this::shuffle;
+            executor.execute(run);
+        });
+        JButton menuButton = new JButton("Menu");
+        menuButton.addActionListener(e -> {
+            cards.next(panelMain);
+            stop();
+        });
+        JButton stopButton = new JButton("Stop");
+        stopButton.addActionListener(e -> {
+            Runnable run = this::stop;
+            executor.execute(run);
+        });
+        JSpinner delaySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 500, 1));
+        delaySpinner.setValue(50);
+        delaySpinner.addChangeListener(e -> {
+            for (SortPanel sort : sortList) {
+                sort.getArray().setDelay((int) delaySpinner.getValue());
+            }
+        });
+        JLabel delayLabel = new JLabel("Millisecond delay:");
+        delayLabel.setForeground(Color.white);
+        panelButton.add(startButton);
+        panelButton.add(stopButton);
+        panelButton.add(shuffleButton);
+        panelButton.add(menuButton);
+        panelButton.add(delayLabel);
+        panelButton.add(delaySpinner);
+    }
+
     private void populateMenu() {
-        panelMenu = new JPanel();
-        panelMenu.setLayout(new BoxLayout(panelMenu, BoxLayout.Y_AXIS));
-        panelMenu.setBackground(Color.black);
-        choices = new LinkedList<>();
-        comboList = new ArrayList<>();
-        algorithmList = new String[]{"Bubble Sort", "Cocktail Sort", "Heap Sort", "Insertion Sort",
-                "Merge Sort", "Quick Sort", "Radix Sort", "Selection Sort", "None"};
         JPanel panelFull = new JPanel(new GridLayout(3, 1, 50, 50));
         panelFull.setBackground(Color.darkGray);
         for (int i = 0; i < 3; i++) {
@@ -118,7 +134,7 @@ public class View {
             cards.next(panelMain);
         });
         JPanel buttonFormat = new JPanel(new GridBagLayout());
-        buttonFormat.setMaximumSize(new Dimension(225, 75));
+        buttonFormat.setMaximumSize(new Dimension(150, 75));
         buttonFormat.add(enterButton);
         buttonFormat.setBackground(Color.darkGray);
         buttonFormat.setBorder(BorderFactory.createLineBorder(Color.white));

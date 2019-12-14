@@ -9,6 +9,7 @@ public class SortArray {
     private final SortPanel sortPanel;
     private ArrayList<Integer> list;
     private int length;
+    private int delay = 50;
 
     public SortArray(int length, SortPanel sortPanel) {
         this.length = length;
@@ -43,7 +44,7 @@ public class SortArray {
                 list.set(firstIndex, list.get(secondIndex));
                 list.set(secondIndex, temp);
                 sortPanel.repaint();
-                Thread.sleep(50);
+                Thread.sleep(delay);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -55,10 +56,14 @@ public class SortArray {
             try {
                 list.set(index, value);
                 sortPanel.repaint();
-                Thread.sleep(50);
+                Thread.sleep(delay);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
+    }
+
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 }
