@@ -1,6 +1,5 @@
 package screens;
 
-
 import algorithms.*;
 
 import javax.swing.*;
@@ -79,7 +78,10 @@ public class View {
         });
         JButton shuffleButton = new JButton("Shuffle");
         shuffleButton.addActionListener(e -> {
-            Runnable run = this::shuffle;
+            Runnable run = () -> {
+                stop();
+                shuffle();
+            };
             executor.execute(run);
         });
         JButton menuButton = new JButton("Menu");
@@ -146,7 +148,7 @@ public class View {
         JPanel panelImage = new JPanel(new GridBagLayout());
         panelImage.setMaximumSize(new Dimension(600, 200));
         panelImage.setBackground(Color.black);
-        panelImage.add(new JLabel(new ImageIcon("src\\resources\\sortlogo.png")));
+        panelImage.add(new JLabel(new ImageIcon(this.getClass().getResource("/resources/sortlogo.png"))));
         panelMenu.add(Box.createRigidArea(new Dimension(0, 20)));
         panelMenu.add(panelImage);
         panelMenu.add(Box.createRigidArea(new Dimension(0, 20)));
