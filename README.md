@@ -5,7 +5,8 @@ This is a sorting algorithm visualization written in Java using Swing.
 ## Preview
 
 Here is a short gif of me using the GUI and running some sorting algorithms:
-![Sorting Algorithm Visualization Preview Gif](https://i.imgur.com/Ehwm31B)
+
+![Sorting Algorithm Visualization Preview Gif](https://imgur.com/Ehwm31B.gif)
 
 ## Usage
 Of course, you could clone this repo and build/run from source with your favorite IDE, but go ahead
